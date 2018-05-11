@@ -26,7 +26,8 @@ CREATE TABLE Funcionario(
     bairro VARCHAR(64),
     cnpj_a VARCHAR(20),
     
-    PRIMARY KEY(cpf)
+    PRIMARY KEY(cpf),
+    FOREIGN KEY (cnpj_a) REFERENCES Academia(cnpj)
 );
 
 CREATE TABLE Aluno(
@@ -42,7 +43,9 @@ CREATE TABLE Aluno(
     cnpj_a VARCHAR(20),
     codTreino INTEGER,
     
-    PRIMARY KEY(cpf)
+    PRIMARY KEY(cpf),
+    FOREIGN KEY (cnpj_a) REFERENCES Academia(cnpj),
+    FOREIGN KEY (codTreino) REFERENCES Treino(codigo)
 );
 
 CREATE TABLE Equipamento(
@@ -55,7 +58,8 @@ CREATE TABLE Equipamento(
     preco_ven FLOAT,
     cnpj_a VARCHAR(20),
     
-    PRIMARY KEY (codigo)
+    PRIMARY KEY (codigo),
+    FOREIGN KEY (cnpj_a) REFERENCES Academia(cnpj)
 );
 
 CREATE TABLE SalaDanca(
@@ -63,7 +67,8 @@ CREATE TABLE SalaDanca(
     numero INTEGER,
     cnpj_a VARCHAR(20),
     
-    PRIMARY KEY (numero)
+    PRIMARY KEY (numero),
+    FOREIGN KEY (cnpj_a) REFERENCES Academia(cnpj)
 );
 
 CREATE TABLE Treino(
