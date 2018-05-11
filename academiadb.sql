@@ -162,3 +162,5 @@ CREATE TABLE Aluno_Sala(
     FOREIGN KEY (cpf_Aluno) REFERENCES Aluno(cpf),
     FOREIGN KEY (numero_Sala) REFERENCES SalaDanca(numero)
 );
+
+#Teste
