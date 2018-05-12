@@ -2,6 +2,7 @@ CREATE DATABASE bd1_academia;
 
 USE bd1_academia;
 
+--CRIAÇÂO DE TABELAS 
 CREATE TABLE Academia(
     
     cnpj VARCHAR(20),
@@ -163,4 +164,36 @@ CREATE TABLE Aluno_Sala(
     FOREIGN KEY (numero_Sala) REFERENCES SalaDanca(numero)
 );
 
-#Teste
+
+
+--INSERTS
+
+--Inserts Academia
+
+--Inserts Funcionario
+
+--Inserts Aluno
+
+--Inserts Equipamento
+
+--Inserts SalaDanca
+
+--Inserts Treino
+
+--Inserts Musculacao
+
+--Inserts Danca
+
+--Inserts Treino_Exerc
+
+--Inserts Tel_Academia
+
+--Inserts Tel_Aluno
+
+--Inserts Tel_Funcionario
+
+--Inserts Aluno_Func
+
+--Inserts Aluno_Equipa
+
+--Inserts Aluno_Sala
