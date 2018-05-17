@@ -206,19 +206,19 @@ INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, 
 	VALUES('456997420/55', 'Adriano', 'VIP', 'a.carvalho@yahoo.com.br','1980-08-26', '12312-100', 'Centro', 'Av. 3','12345678/9101-11', 005);
 
 #Inserts Equipamento
-INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, cnpj_a)
+INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
 	VALUES('001-a', 'Pulley', '2015-05-29', '', 4500.50, '','12345678/9101-11');
     
-INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, cnpj_a)
+INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
 	VALUES('001-b', 'Supino', '2016-03-02', '', 3789.30, '','12345678/9101-11');
     
-INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, cnpj_a)
+INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
 	VALUES('001-c', 'Desenvolvimento', '2015-08-09', '', 3500.00, '','12345678/9101-11');
     
-INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, cnpj_a)
+INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
 	VALUES('002-a', 'Leg Horizontal', '2015-07-23', '', 2800.50, '','12345678/9101-11');
 
-INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, cnpj_a)
+INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
 	VALUES('002-b', 'Cadeira Extensora', '2015-07-19', '', 2998.89, '','12345678/9101-11');
     
 #Inserts SalaDanca
