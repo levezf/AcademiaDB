@@ -1,8 +1,9 @@
+DROP DATABASE bd1_academia;
 CREATE DATABASE bd1_academia;
 
 USE bd1_academia;
 
---CRIAÇÂO DE TABELAS 
+#CRIAÇÂO DE TABELAS 
 CREATE TABLE Academia(
     
     cnpj VARCHAR(20),
@@ -31,27 +32,9 @@ CREATE TABLE Funcionario(
     FOREIGN KEY (cnpj_a) REFERENCES Academia(cnpj)
 );
 
-CREATE TABLE Aluno(
-
-    cpf VARCHAR(64),
-    nome VARCHAR(64),
-    plano VARCHAR(64),
-    email VARCHAR(64),
-    data_nasc DATE,
-    cep VARCHAR(64),
-    logradouro VARCHAR(64),
-    bairro VARCHAR(64),
-    cnpj_a VARCHAR(20),
-    codTreino INTEGER,
-    
-    PRIMARY KEY(cpf),
-    FOREIGN KEY (cnpj_a) REFERENCES Academia(cnpj),
-    FOREIGN KEY (codTreino) REFERENCES Treino(codigo)
-);
-
 CREATE TABLE Equipamento(
     
-    codigo VARCHAR(64),
+    codigo INTEGER,
     descricao VARCHAR(256),
     data_comp DATE,
     data_ven DATE,
@@ -72,17 +55,6 @@ CREATE TABLE SalaDanca(
     FOREIGN KEY (cnpj_a) REFERENCES Academia(cnpj)
 );
 
-CREATE TABLE Treino(
-    
-    cpf_Aluno VARCHAR(20),
-    cpf_Fun VARCHAR(20),
-    codigo INTEGER,
-    
-    PRIMARY KEY(codigo),
-    FOREIGN KEY (cpf_Aluno) REFERENCES Aluno(cpf),
-    FOREIGN KEY (cpf_fun) REFERENCES Funcionario(cpf)
-);
-
 CREATE TABLE Musculacao(
     
     cod_Treino INTEGER,
@@ -99,6 +71,37 @@ CREATE TABLE Danca(
     PRIMARY KEY(cod_treino)
 );
 
+CREATE TABLE Aluno(
+
+    cpf VARCHAR(64),
+    nome VARCHAR(64),
+    plano VARCHAR(64),
+    email VARCHAR(64),
+    data_nasc DATE,
+    cep VARCHAR(64),
+    logradouro VARCHAR(64),
+    bairro VARCHAR(64),
+    cnpj_a VARCHAR(20),
+    codTreino INTEGER,
+    
+    PRIMARY KEY(cpf),
+    FOREIGN KEY (cnpj_a) REFERENCES Academia(cnpj)
+
+);
+
+CREATE TABLE Treino(
+    
+    cpf_Aluno VARCHAR(20),
+    cpf_Fun VARCHAR(20),
+    codigo INTEGER,
+    
+    PRIMARY KEY(codigo),
+    FOREIGN KEY (cpf_Aluno) REFERENCES Aluno(cpf),
+    FOREIGN KEY (cpf_fun) REFERENCES Funcionario(cpf)
+);
+
+ALTER TABLE Aluno ADD FOREIGN KEY (codTreino) REFERENCES Treino(codigo);
+
 CREATE TABLE Treino_Exerc(
     
     codTreino INTEGER,
@@ -109,18 +112,9 @@ CREATE TABLE Treino_Exerc(
 
 );
 
-CREATE TABLE Tel_Academia(
-
-    cnpj_academia INTEGER,
-    telefone INTEGER,
-    
-    PRIMARY KEY (telefone),
-    FOREIGN KEY (cnpj_academia) REFERENCES Academia(cnpj)
-);
-
 CREATE TABLE Tel_Aluno(
 
-    cpf_Aluno INTEGER,
+    cpf_aluno VARCHAR(64),
     telefone INTEGER,
     
     PRIMARY KEY (telefone),
@@ -130,7 +124,7 @@ CREATE TABLE Tel_Aluno(
 
 CREATE TABLE Tel_Funcionario(
 
-    cpf_Func INTEGER,
+    cpf_Func VARCHAR(64),
     telefone INTEGER,
     
     PRIMARY KEY (telefone),
@@ -139,8 +133,8 @@ CREATE TABLE Tel_Funcionario(
 
 CREATE TABLE Aluno_Func(
     
-    cpf_Func INTEGER,
-    cpf_Aluno INTEGER,
+    cpf_Func VARCHAR(64),
+    cpf_Aluno VARCHAR(64),
     
     FOREIGN KEY (cpf_Aluno) REFERENCES Aluno(cpf),
     FOREIGN KEY (cpf_Func) REFERENCES Funcionario(cpf)
@@ -148,7 +142,7 @@ CREATE TABLE Aluno_Func(
 
 CREATE TABLE Aluno_Equipa(
     
-    cpf_Aluno INTEGER,
+    cpf_Aluno VARCHAR(64),
     cod_equipa INTEGER,
     
     FOREIGN KEY (cpf_Aluno) REFERENCES Aluno(cpf),
@@ -157,7 +151,7 @@ CREATE TABLE Aluno_Equipa(
 
 CREATE TABLE Aluno_Sala(
     
-    cpf_Aluno INTEGER,
+    cpf_Aluno VARCHAR(64),
     numero_Sala INTEGER,
     
     FOREIGN KEY (cpf_Aluno) REFERENCES Aluno(cpf),
@@ -190,19 +184,19 @@ INSERT INTO Funcionario (cpf, nome, cargo, email, carga_ho, cep, logradouro, bai
 	VALUES('108945622/65', 'Vanderlei', 'Faxineiro','vander_silva@gmail.com', 8, '12302-100', 'Rua 12', 'Setor Oeste', '12345678/9101-11');
 
 #Inserts Aluno
-INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, cnpj_a, cod_treino)
+INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, cnpj_a, codTreino)
 	VALUES('789102345/35', 'Patricia', 'Comum', 'pati_rn@gmail.com','1985-04-16', '12442-100', 'Rua Anápolis', 'Vila Operadora','12345678/9101-11', 001);
 
-INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, cnpj_a, cod_treino)
+INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, cnpj_a, codTreino)
 	VALUES('289789345/05', 'Roberto', 'VIP', 'robertolima@live.com','1977-07-07', '12432-100', 'Rua Portugal', 'Novo Horizonte','12345678/9101-11', 002);
     
-INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, cnpj_a, cod_treino)
+INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, cnpj_a, codTreino)
 	VALUES('196378345/51', 'Nathalia', 'VIP', 'nati_atalah@gmail.com','1994-01-21', '12422-100', 'Rua Doutor Frank', 'Arnold Schwarzenegger','12345678/9101-11', 003);
 
-INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, cnpj_a, cod_treino)
+INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, cnpj_a, codTreino)
 	VALUES('682308725/99', 'Jéssica', 'Comum', 'jessy.oliveira@outlook.com','1990-11-01', '12542-100', 'Av. Bandeirantes', 'Jardim Paraíso','12345678/9101-11', 004);
 
-INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, cnpj_a, cod_treino)
+INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, cnpj_a, codTreino)
 	VALUES('456997420/55', 'Adriano', 'VIP', 'a.carvalho@yahoo.com.br','1980-08-26', '12312-100', 'Centro', 'Av. 3','12345678/9101-11', 005);
 
 #Inserts Equipamento
