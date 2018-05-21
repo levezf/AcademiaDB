@@ -446,3 +446,16 @@ INSERT INTO Aluno_Sala (cpf_aluno, numero_sala)
 INSERT INTO Aluno_Sala (cpf_aluno, numero_sala)
 	VALUES('196378345/51', 3);
     
+#UPDATES
+
+
+#Consultas
+
+# Qual a média de todos os tempos de descanso? 
+# Há quantos alunos cadastrados?
+# Qual o maior tempo de descanso?
+# Qual o menor tempo de descanso?
+# Qual o valor total gasto em equipamentos por mes?
+# Liste todos os alunos de musculação que tenham o exercicio 'Supino reto' em seu treino
+
+
