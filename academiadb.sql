@@ -1,9 +1,10 @@
-#DROP DATABASE bd1_academia;
+DROP DATABASE bd1_academia;
 CREATE DATABASE bd1_academia;
 
 USE bd1_academia;
 
 #CRIAÇÂO DE TABELAS 
+
 CREATE TABLE Academia(
     
     cnpj VARCHAR(20),
@@ -16,6 +17,7 @@ CREATE TABLE Academia(
     PRIMARY KEY (cnpj)
 );
 
+#DROP TABLE Funcionario;
 CREATE TABLE Funcionario(
     
     cpf VARCHAR(20),
@@ -44,6 +46,8 @@ CREATE TABLE Equipamento(
     
     PRIMARY KEY (codigo),
     FOREIGN KEY (cnpj_a) REFERENCES Academia(cnpj)
+		ON DELETE CASCADE
+
 );
 
 CREATE TABLE SalaDanca(
@@ -53,6 +57,8 @@ CREATE TABLE SalaDanca(
     
     PRIMARY KEY (numero),
     FOREIGN KEY (cnpj_a) REFERENCES Academia(cnpj)
+		ON DELETE CASCADE
+
 );
 
 CREATE TABLE Musculacao(
@@ -86,6 +92,7 @@ CREATE TABLE Aluno(
     
     PRIMARY KEY(cpf),
     FOREIGN KEY (cnpj_a) REFERENCES Academia(cnpj)
+		ON DELETE CASCADE
 
 );
 
@@ -97,18 +104,16 @@ CREATE TABLE Treino(
     
     PRIMARY KEY(codigo),
     FOREIGN KEY (cpf_fun) REFERENCES Funcionario(cpf)
+		ON DELETE CASCADE
 );
-
-
 
 CREATE TABLE Treino_Exerc(
     
     codTreino INTEGER,
     exercicio VARCHAR(64),
     
-    PRIMARY KEY (exercicio),
     FOREIGN KEY (codTreino) REFERENCES Treino(codigo)
-
+		ON DELETE CASCADE
 );
 
 CREATE TABLE Tel_Aluno(
@@ -117,7 +122,8 @@ CREATE TABLE Tel_Aluno(
     telefone VARCHAR(20),
     
     PRIMARY KEY (telefone),
-    FOREIGN KEY (cpf_Aluno) REFERENCES Aluno(cpf)
+    FOREIGN KEY (cpf_Aluno) REFERENCES Aluno(cpf) 
+		ON DELETE CASCADE
 
 );
 
@@ -128,6 +134,8 @@ CREATE TABLE Tel_Funcionario(
     
     PRIMARY KEY (telefone),
     FOREIGN KEY (cpf_Func) REFERENCES Funcionario(cpf)
+		ON DELETE CASCADE
+
 );
 
 CREATE TABLE Tel_Academia(
@@ -137,6 +145,8 @@ CREATE TABLE Tel_Academia(
     
     PRIMARY KEY (telefone),
     FOREIGN KEY (cnpj_a) REFERENCES Academia(cnpj)
+		ON DELETE CASCADE
+
 );
 
 CREATE TABLE Aluno_Func(
@@ -144,8 +154,12 @@ CREATE TABLE Aluno_Func(
     cpf_Func VARCHAR(20),
     cpf_Aluno VARCHAR(20),
     
-    FOREIGN KEY (cpf_Aluno) REFERENCES Aluno(cpf),
+    FOREIGN KEY (cpf_Aluno) REFERENCES Aluno(cpf)
+		ON DELETE CASCADE,
+
     FOREIGN KEY (cpf_Func) REFERENCES Funcionario(cpf)
+		ON DELETE CASCADE
+
 );
 
 CREATE TABLE Aluno_Equipa(
@@ -153,8 +167,12 @@ CREATE TABLE Aluno_Equipa(
     cpf_Aluno VARCHAR(20),
     cod_equipa INTEGER,
     
-    FOREIGN KEY (cpf_Aluno) REFERENCES Aluno(cpf),
-    FOREIGN KEY (cod_equipa) REFERENCES Equipamento(codigo)
+    FOREIGN KEY (cpf_Aluno) REFERENCES Aluno(cpf)
+ 		ON DELETE CASCADE,
+ 
+	FOREIGN KEY (cod_equipa) REFERENCES Equipamento(codigo)
+		ON DELETE CASCADE
+
 );
 
 CREATE TABLE Aluno_Sala(
@@ -162,8 +180,12 @@ CREATE TABLE Aluno_Sala(
     cpf_Aluno VARCHAR(20),
     numero_Sala INTEGER,
     
-    FOREIGN KEY (cpf_Aluno) REFERENCES Aluno(cpf),
-    FOREIGN KEY (numero_Sala) REFERENCES SalaDanca(numero)
+    FOREIGN KEY (cpf_Aluno) REFERENCES Aluno(cpf)
+		ON DELETE CASCADE,
+
+	FOREIGN KEY (numero_Sala) REFERENCES SalaDanca(numero)
+		ON DELETE CASCADE
+
 );
 
 
@@ -230,9 +252,9 @@ INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, 
 INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, cnpj_a, codTreino)
 	VALUES('456997420/55', 'Adriano', 'VIP', 'a.carvalho@yahoo.com.br','1980-08-26', '12312-100', 'Centro', 'Av. 3','12345678/9101-11', 005);
 
-ALTER TABLE Treino ADD FOREIGN KEY (cpf_aluno) REFERENCES Aluno(cpf);
+ALTER TABLE Treino ADD FOREIGN KEY (cpf_aluno) REFERENCES Aluno(cpf) ON DELETE CASCADE;
 
-ALTER TABLE Aluno ADD FOREIGN KEY (codTreino) REFERENCES Treino(codigo);
+ALTER TABLE Aluno ADD FOREIGN KEY (codTreino) REFERENCES Treino(codigo) ON DELETE CASCADE;
 
 #Inserts Equipamento
 INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
@@ -306,8 +328,11 @@ INSERT INTO Treino_Exerc (codTreino, exercicio)
 	VALUES(006, 'Agachamento Livre');
     
 INSERT INTO Treino_Exerc (codTreino, exercicio)
-	VALUES(006, 'Supino Reto');    
+	VALUES(006, 'Supino Reto');  
     
+INSERT INTO Treino_Exerc (codTreino, exercicio)
+	VALUES(005, 'Supino Reto');  
+
 #Inserts Tel_Academia
 INSERT INTO Tel_Academia (cnpj_a, telefone)
 	VALUES('12345678/9101-11', '1694442976');
@@ -446,16 +471,53 @@ INSERT INTO Aluno_Sala (cpf_aluno, numero_sala)
 INSERT INTO Aluno_Sala (cpf_aluno, numero_sala)
 	VALUES('196378345/51', 3);
     
+    
+SELECT * FROM Aluno;
+SELECT * FROM Tel_Aluno;
+SELECT * FROM SalaDanca;
+SELECT * FROM Musculacao;
+SELECT * FROM Treino_Exerc;
+SELECT * FROM Treino;
+SELECT * FROM Tel_Academia;
+SELECT * FROM Tel_Funcionario;
+SELECT * FROM Equipamento;
+SELECT * FROM Funcionario;
+    
 #UPDATES
+UPDATE Tel_Aluno SET telefone = '1634135997' WHERE cpf_aluno ='196378345/51' AND telefone = '1634116045';
+UPDATE SalaDanca SET numero = 11 WHERE cnpj_a = '12345678/9101-11' AND numero = 2;
+UPDATE Treino_Exerc SET exercicio = 'Supino Declinado' WHERE codTreino = 2 AND LOWER(exercicio) = 'leg 45';
+UPDATE Tel_Funcionario SET telefone = '1634165100' WHERE cpf_func = '050622879/03' AND telefone = '1634946734';
+UPDATE Tel_Academia SET telefone = '1933727333' WHERE cnpj_a = '12345678/9101-11' AND telefone='1634201827';
 
+#DELETES
+DELETE FROM Tel_Aluno WHERE telefone = '1634135997' AND cpf_aluno = '196378345/51';;
+DELETE FROM Treino WHERE codigo = 1 AND cpf_fun = '108945622/65' AND cpf_aluno = '789102345/35';
+DELETE FROM Aluno WHERE cpf = '789102345/35';
+DELETE FROM Equipamento WHERE codigo = 001;
+DELETE FROM Funcionario WHERE cpf = '108945622/65';
 
 #Consultas
 
-# Qual a média de todos os tempos de descanso? 
+# Qual o tempo médio de descanso para musculacao? 
+SELECT SEC_TO_TIME(ROUND(AVG(TIME_TO_SEC(tempo_descanso)),2)) AS 'Media: Tempo de Descanso' FROM Musculacao;
+
 # Há quantos alunos cadastrados?
-# Qual o maior tempo de descanso?
-# Qual o menor tempo de descanso?
+SELECT COUNT(*) AS 'Quantidade de Alunos Cadastrados' FROM Aluno;
+
+# Qual a maior duracao das aulas de dança?
+SELECT MAX(tempo_aula) FROM Danca;
+
+# Qual a menor duracao das aulas de dança?
+SELECT MIN(tempo_aula) FROM Danca;
+
+
 # Qual o valor total gasto em equipamentos por mes?
 # Liste todos os alunos de musculação que tenham o exercicio 'Supino reto' em seu treino
 
-
+#Liste a quantidade de treinos que cada exercicio está presente.
+SELECT te.exercicio AS 'Nome do Exercicio', COUNT(t.codigo) AS 'Quantidade de treinos'
+	FROM Treino_Exerc te
+		JOIN Treino t
+			ON t.codigo = te.codTreino
+		GROUP BY te.exercicio;
