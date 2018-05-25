@@ -585,5 +585,11 @@ SELECT f.nome AS 'Nome Funcionario' FROM Treino t
 										GROUP BY f.nome);
                                         
 #Mostre o nome de todos os alunos matriculados na musculacao(Use a expresão ANY ou SOME).
-SELECT a.nome FROM Aluno a 
-	JOIN Treinodepartamento
+SELECT nome FROM Aluno 
+	WHERE cpf = ANY(SELECT t.cpf_aluno FROM Treino t JOIN Musculacao m ON m.cod_treino = t.codigo);
+    
+#
+
+#
+
+#
