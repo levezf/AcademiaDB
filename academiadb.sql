@@ -211,6 +211,9 @@ CREATE TABLE Aluno_Sala(
 #Inserts Academia
 INSERT INTO Academia (cnpj, nome, cep, logradouro, bairro, num)
 	VALUES('12345678/9101-11', 'FullMaster', '12312-100', 'Av. 5', 'Centro', 72);
+    
+INSERT INTO Academia (cnpj, nome, cep, logradouro, bairro, num)
+	VALUES('12345678/0191-12', 'FullMaster', '12311-100', 'Piccola Italia', 'Jardim Italia', 350);
 
 #Inserts Funcionario
 INSERT INTO Funcionario (cpf, nome, cargo, email, carga_ho, cep, logradouro, bairro, cnpj_a)
@@ -226,7 +229,16 @@ INSERT INTO Funcionario (cpf, nome, cargo, email, carga_ho, cep, logradouro, bai
 	VALUES('998822564/97', 'Lucas', 'Instrutor','lucasfg@outlook.com', 8, '12312-100', 'Av. 3', 'Centro', '12345678/9101-11');
     
 INSERT INTO Funcionario (cpf, nome, cargo, email, carga_ho, cep, logradouro, bairro, cnpj_a)
-	VALUES('108945622/65', 'Vanderlei', 'Faxineiro','vander_silva@gmail.com', 8, '12302-100', 'Rua 12', 'Setor Oeste', '12345678/9101-11');
+	VALUES('108945622/65', 'Vanderlei', 'Faxineiro','vander_silva@gmail.com', 4, '12302-100', 'Rua 12', 'Setor Oeste', '12345678/9101-11');
+
+INSERT INTO Funcionario (cpf, nome, cargo, email, carga_ho, cep, logradouro, bairro, cnpj_a)
+	VALUES('019854226/66', 'Larissa', 'Gerente','la.marins@live.com', 8, '12350-100', 'Av. das Nações Unidas', 'Jardim Pinheiros', '12345678/9101-11');
+
+INSERT INTO Funcionario (cpf, nome, cargo, email, carga_ho, cep, logradouro, bairro, cnpj_a)
+	VALUES('678045622/85', 'Vanderlei', 'Faxineiro','vander_silva@gmail.com', 4, '12302-100', 'Rua 12', 'Setor Oeste', '12345678/9101-11');
+
+INSERT INTO Funcionario (cpf, nome, cargo, email, carga_ho, cep, logradouro, bairro, cnpj_a)
+	VALUES('899854226/24', 'Larissa', 'Gerente','la.marins@live.com', 8, '12350-100', 'Av. das Nações Unidas', 'Jardim Pinheiros', '12345678/9101-11');
 
 
 #Inserts Treino
@@ -246,10 +258,19 @@ INSERT INTO Treino(codigo, cpf_aluno, cpf_fun)
 	VALUES(005, '682308725/99','345622778/56');
     
 INSERT INTO Treino(codigo, cpf_aluno, cpf_fun)
-	VALUES(006, '456997420/55','108945622/65');
+	VALUES(006, '584559999/04','108945622/65');
+
+INSERT INTO Treino(codigo, cpf_aluno, cpf_fun)
+	VALUES(007, '584559999/08','108945622/65');
     
-
-
+INSERT INTO Treino(codigo, cpf_aluno, cpf_fun)
+	VALUES(008, '364447799/84','345622778/56');
+    
+INSERT INTO Treino(codigo, cpf_aluno, cpf_fun)
+	VALUES(009, '053990799/14','585721998/14');
+    
+INSERT INTO Treino(codigo, cpf_aluno, cpf_fun)
+	VALUES(010, '052007197/09','585721998/14');
 
 #Inserts Aluno
 INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, cnpj_a, cod_treino)
@@ -269,6 +290,31 @@ INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, 
 
 INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, cnpj_a, cod_treino)
 	VALUES('458459779/48', 'Felipe', 'Comum', 'fe.fe@yahoo.com.br','1989-07-07', '12312-100', 'Centro', 'Av. 3','12345678/9101-11', null);
+    
+INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, cnpj_a, cod_treino)
+	VALUES('448549997/44', 'Nadia', 'VIP', 'nadia_88@gmail.com','1988-09-25', '12421-100', 'Jardim das Araucárias', 'Rua Albert Einstein','12345678/9101-11', null);
+        
+INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, cnpj_a, cod_treino)
+	VALUES('584559999/04', 'João', 'VIP', 'jo.carlos@yahoo.com.br','2000-02-16', '12241-100', 'Vista Boa', 'Rua Miguel Lima','12345678/9101-11', 006);    
+
+INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, cnpj_a, cod_treino)
+	VALUES('584559999/08', 'Sara', 'Comum', 'sarinha_97@live.com','1997-02-16', '12214-100', 'Barra Funda', 'Rua do Descobrimento','12345678/9101-11', 007);      
+    
+INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, cnpj_a, cod_treino)
+	VALUES('364447799/84', 'Amanda', 'VIP', 'amandarocha@outlook.com','1997-02-16', '12244-100', 'Brooklin', 'Av. dos Trabalhadores','12345678/9101-11', 008);  
+
+INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, cnpj_a, cod_treino)
+	VALUES('053990799/14', 'Ricardo', 'Comum', 'ricar_matos@gmail.com','1997-02-16', '12312-100', 'Centro', 'Rua 10','12345678/9101-11', 009);  
+
+INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, cnpj_a, cod_treino)
+	VALUES('052007197/09', 'Bianca', 'VIP', 'bibiricca@yahoo.com.br','1994-09-02', '12311-100', 'Liberdade', 'Rua Ana Berck','12345678/9101-11', 010);  
+
+INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, cnpj_a, cod_treino)
+	VALUES('753007197/09', 'Julia', 'VIP', 'ju@gmail.com.br','1994-09-02', '12311-100', 'Liberdade', 'Rua Ana Berck','12345678/0191-12', 001);  
+
+INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, cnpj_a, cod_treino)
+	VALUES('806097197/10', 'Giovana Solo', 'VIP', 'gi.solo@yahoo.com.br','1994-09-02', '12311-100', 'Liberdade', 'Rua Ana Berck','12345678/0191-12', 002);  
+
 
 ALTER TABLE Treino ADD FOREIGN KEY (cpf_aluno) REFERENCES Aluno(cpf) ON DELETE CASCADE;
 
@@ -290,6 +336,37 @@ INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, pre
 INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
 	VALUES(005, 'Cadeira Extensora', '2015-07-19', null, 2998.89, null,'12345678/9101-11');
     
+INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
+	VALUES(006, 'Gravitation', '2011-07-19','2013-10-15' , 3059.60, 1500.30,'12345678/9101-11');
+
+INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
+	VALUES(007, 'Gravitation', '2013-11-05', null, 4560.39, null,'12345678/9101-11');
+    
+INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
+	VALUES(008, 'Máquina Scott', '2013-06-26','2015-03-20', 2600.00, 1800.50,'12345678/9101-11');
+    
+INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
+	VALUES(009, 'Seated Leg Curl', '2011-07-21',null, 4905.50, null,'12345678/9101-11');
+    
+INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
+	VALUES(010, 'Barras', '2014-07-21',null, 3560.50, null,'12345678/9101-11');
+    
+INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
+	VALUES(011, 'Cross Over', '2013-05-17','2014-01-12', 5000.50, 3500,'12345678/9101-11');
+    
+INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
+	VALUES(012, 'Cross Over', '2014-03-1',null, 8500.50, null,'12345678/9101-11');    
+
+INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
+	VALUES(013, 'Alteres', '2014-07-21',null, 3845.50, null,'12345678/9101-11');
+
+INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
+	VALUES(014, 'Bancos multiposicões', '2014-07-21',null, 5000.50, null,'12345678/9101-11');
+
+INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
+	VALUES(015, 'Máquina Scott', '2015-02-13',null, 3154.30, null,'12345678/9101-11');
+
+    
 #Inserts Sala_Danca
 INSERT INTO Sala_Danca (numero, cnpj_a)
 	VALUES(1,'12345678/9101-11');
@@ -300,7 +377,11 @@ INSERT INTO Sala_Danca (numero, cnpj_a)
 INSERT INTO Sala_Danca (numero, cnpj_a)
 	VALUES(3,'12345678/9101-11');
     
-
+INSERT INTO Sala_Danca (numero, cnpj_a)
+	VALUES(4,'12345678/9101-11');
+    
+INSERT INTO Sala_Danca (numero, cnpj_a)
+	VALUES(5,'12345678/9101-11');
     
 #Inserts Musculacao    
 INSERT INTO Musculacao (cod_treino, tempo_descanso)
@@ -312,13 +393,27 @@ INSERT INTO Musculacao (cod_treino, tempo_descanso)
 INSERT INTO Musculacao (cod_treino, tempo_descanso)
 	VALUES(005, '00:01:30');
     
+INSERT INTO Musculacao (cod_treino, tempo_descanso)
+	VALUES(007, '00:00:45');
+
+INSERT INTO Musculacao (cod_treino, tempo_descanso)
+	VALUES(009, '00:01:30');
+            
 #Inserts Danca
 INSERT INTO Danca (cod_treino, tempo_aula)
 	VALUES(001, '00:30:00');
     
 INSERT INTO Danca (cod_treino, tempo_aula)
-	VALUES(002, '01:00:00');    
+	VALUES(003, '01:00:00');
+    
+INSERT INTO Danca (cod_treino, tempo_aula)
+	VALUES(006, '00:45:00');
+    
+INSERT INTO Danca (cod_treino, tempo_aula)
+	VALUES(008, '00:45:00');
 
+INSERT INTO Danca (cod_treino, tempo_aula)
+	VALUES(010, '00:35:00');  
     
 #Inserts Treino_Exerc
 INSERT INTO Treino_Exerc (cod_treino, exercicio)
@@ -328,35 +423,78 @@ INSERT INTO Treino_Exerc (cod_treino, exercicio)
 	VALUES(002, 'Abdominal Supra');
     
 INSERT INTO Treino_Exerc (cod_treino, exercicio)
-	VALUES(002, 'Agachamento na bola');
+	VALUES(002, 'Agachamento bola');
     
  INSERT INTO Treino_Exerc (cod_treino, exercicio)
-	VALUES(004, 'Rosca Alternada');
+	VALUES(002, 'Rosca Alternada');
     
 INSERT INTO Treino_Exerc (cod_treino, exercicio)
 	VALUES(004, 'Pulldown');
     
 INSERT INTO Treino_Exerc (cod_treino, exercicio)
-	VALUES(004, 'Tríceps Corda');   
+	VALUES(002, 'Tríceps Corda');   
     
 INSERT INTO Treino_Exerc (cod_treino, exercicio)
-	VALUES(005, 'Tríceps Polia');
+	VALUES(004, 'Tríceps Polia');
     
 INSERT INTO Treino_Exerc (cod_treino, exercicio)
-	VALUES(006, 'Agachamento Livre');
+	VALUES(002, 'Agachamento Livre');
     
 INSERT INTO Treino_Exerc (cod_treino, exercicio)
 	VALUES(004, 'Supino Reto');  
     
 INSERT INTO Treino_Exerc (cod_treino, exercicio)
-	VALUES(005, 'Supino Reto');  
+	VALUES(004, 'Desenvolvimento');
+    
+INSERT INTO Treino_Exerc (cod_treino, exercicio)
+	VALUES(004, ' Rosca Scoot com halter'); 
+
+INSERT INTO Treino_Exerc (cod_treino, exercicio)
+	VALUES(005, 'Rosca em polia baixa'); 
+
+INSERT INTO Treino_Exerc (cod_treino, exercicio)
+	VALUES(005, 'Rosca concentrada'); 
+
+INSERT INTO Treino_Exerc (cod_treino, exercicio)
+	VALUES(005, 'Press Francês');
+    
+INSERT INTO Treino_Exerc (cod_treino, exercicio)
+	VALUES(005, 'Extensões de tríceps sentado');
+
+INSERT INTO Treino_Exerc (cod_treino, exercicio)
+	VALUES(007, 'Puxada de tríceps corda');
+    
+INSERT INTO Treino_Exerc (cod_treino, exercicio)
+	VALUES(007, 'Polia alta');
+    
+INSERT INTO Treino_Exerc (cod_treino, exercicio)
+	VALUES(009, 'Remada com barra');
+    
+INSERT INTO Treino_Exerc (cod_treino, exercicio)
+	VALUES(009, 'Hammer'); 
+
+INSERT INTO Treino_Exerc (cod_treino, exercicio)
+	VALUES(007, 'Abdominal Infra'); 
+
+INSERT INTO Treino_Exerc (cod_treino, exercicio)
+	VALUES(009, 'Flexão de pernas deitado'); 
+
 
 #Inserts Tel_Academia
 INSERT INTO Tel_Academia (cnpj_a, telefone)
 	VALUES('12345678/9101-11', '1694442976');
     
 INSERT INTO Tel_Academia (cnpj_a, telefone)
-	VALUES('12345678/9101-11', '1634201827');    
+	VALUES('12345678/9101-11', '1634201827');
+    
+INSERT INTO Tel_Academia (cnpj_a, telefone)
+	VALUES('12345678/9101-11', '0800801827');
+    
+INSERT INTO Tel_Academia (cnpj_a, telefone)
+	VALUES('12345678/0191-12', '1694443077');
+    
+INSERT INTO Tel_Academia (cnpj_a, telefone)
+	VALUES('12345678/0191-12', '1634202818');  
 
 #Inserts Tel_Aluno
 INSERT INTO Tel_Aluno (cpf_aluno, telefone)
@@ -388,7 +526,28 @@ INSERT INTO Tel_Aluno (cpf_aluno, telefone)
 
 INSERT INTO Tel_Aluno (cpf_aluno, telefone)
 	VALUES('456997420/55', '1634546018');
-
+    
+INSERT INTO Tel_Aluno (cpf_aluno, telefone)
+	VALUES('448549997/44', '16995716411');
+    
+INSERT INTO Tel_Aluno (cpf_aluno, telefone)
+	VALUES('584559999/04', '16997517444');
+    
+INSERT INTO Tel_Aluno (cpf_aluno, telefone)
+	VALUES('584559999/08', '16997517333');
+    
+INSERT INTO Tel_Aluno (cpf_aluno, telefone)
+	VALUES('364447799/84', '16997517222');
+    
+INSERT INTO Tel_Aluno (cpf_aluno, telefone)
+	VALUES('053990799/14', '16997517111');
+    
+INSERT INTO Tel_Aluno (cpf_aluno, telefone)
+	VALUES('053990799/14', '1634907810');
+    
+INSERT INTO Tel_Aluno (cpf_aluno, telefone)
+	VALUES('052007197/09', '16997514545');    
+    
 #Inserts Tel_Funcionario
 INSERT INTO Tel_Funcionario (cpf_func, telefone)
 	VALUES('345622778/56', '16991586800');
@@ -418,7 +577,14 @@ INSERT INTO Tel_Funcionario (cpf_func, telefone)
 	VALUES('108945622/65','16995175300');
     
 INSERT INTO Tel_Funcionario (cpf_func, telefone)
-	VALUES('108945622/65', '1634494639');   
+	VALUES('108945622/65', '1634494639');
+    
+INSERT INTO Tel_Funcionario (cpf_func, telefone)
+	VALUES('019854226/66', '16991575541'); 
+
+INSERT INTO Tel_Funcionario (cpf_func, telefone)
+	VALUES('019854226/66', '1634941199');    
+
     
 #Inserts Aluno_Func
 INSERT INTO Aluno_Func (cpf_aluno, cpf_func)
@@ -434,7 +600,22 @@ INSERT INTO Aluno_Func ( cpf_aluno, cpf_func)
 	VALUES('682308725/99','998822564/97');
     
 INSERT INTO Aluno_Func ( cpf_aluno, cpf_func)
-	VALUES('456997420/55','050622879/03');
+	VALUES('456997420/55','019854226/66');
+    
+INSERT INTO Aluno_Func ( cpf_aluno, cpf_func)
+	VALUES('584559999/04','998822564/97');
+    
+INSERT INTO Aluno_Func ( cpf_aluno, cpf_func)
+	VALUES('584559999/08','019854226/66');
+    
+INSERT INTO Aluno_Func ( cpf_aluno, cpf_func)
+	VALUES('364447799/84','050622879/03');
+    
+INSERT INTO Aluno_Func ( cpf_aluno, cpf_func)
+	VALUES('053990799/14','998822564/97');
+    
+INSERT INTO Aluno_Func ( cpf_aluno, cpf_func)
+	VALUES('052007197/09','019854226/66');     
     
 #Inserts Aluno_Equipa
 INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
@@ -453,6 +634,27 @@ INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
 	VALUES('289789345/05',005);
     
 INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('289789345/05',007);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('289789345/05',009);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('289789345/05',010);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('289789345/05',012);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('289789345/05',013);
+
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('289789345/05',014);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('289789345/05',015);    
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
 	VALUES('682308725/99',001);
     
 INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
@@ -468,6 +670,27 @@ INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
 	VALUES('682308725/99',005);
     
 INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('682308725/99',007);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('682308725/99',009);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('682308725/99',010);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('682308725/99',012);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('682308725/99',013);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('682308725/99',014);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('682308725/99',015);    
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
 	VALUES('456997420/55',001);
     
 INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
@@ -481,7 +704,100 @@ INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
     
 INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
 	VALUES('456997420/55',005);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('456997420/55',007);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('456997420/55',009);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('456997420/55',010);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('456997420/55',012);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('456997420/55',013);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('456997420/55',014);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('456997420/55',015);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('458459779/48',001);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('458459779/48',002);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('458459779/48',003);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('458459779/48',004);
 
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('458459779/48',005);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('458459779/48',007);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('458459779/48',009);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('458459779/48',010);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('458459779/48',012);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('458459779/48',013);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('458459779/48',014);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('458459779/48',015);    
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('448549997/44',001);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('448549997/44',002); 
+
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('448549997/44',003);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('448549997/44',004);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('448549997/44',005);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('448549997/44',007);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('448549997/44',009); 
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('448549997/44',010); 
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('448549997/44',012); 
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('448549997/44',013); 
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('448549997/44',014);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('448549997/44',015);  
+    
 #Inserts Aluno_Sala
 INSERT INTO Aluno_Sala (cpf_aluno, numero_sala)
 	VALUES('789102345/35', 1);
@@ -489,6 +805,14 @@ INSERT INTO Aluno_Sala (cpf_aluno, numero_sala)
 INSERT INTO Aluno_Sala (cpf_aluno, numero_sala)
 	VALUES('196378345/51', 3);
     
+INSERT INTO Aluno_Sala (cpf_aluno, numero_sala)
+	VALUES('448549997/44', 2);
+    
+INSERT INTO Aluno_Sala (cpf_aluno, numero_sala)
+	VALUES('584559999/04', 2);
+    
+INSERT INTO Aluno_Sala (cpf_aluno, numero_sala)
+	VALUES('052007197/09', 1);
     
 # SELECTS *
 SELECT * FROM Academia;
@@ -526,11 +850,20 @@ DELETE FROM Funcionario WHERE cpf = '108945622/65';
 
 #Consultas
 
-# Qual o tempo médio de descanso para musculacao? 
-SELECT SEC_TO_TIME(ROUND(AVG(TIME_TO_SEC(tempo_descanso)),2)) AS 'Media: Tempo de Descanso' FROM Musculacao;
+# Qual o tempo médio de descanso para musculacao em cada academia? 
+SELECT a.cnpj_a AS 'CNPJ Academia', SEC_TO_TIME(ROUND(AVG(TIME_TO_SEC(m.tempo_descanso)),2)) AS 'Media: Tempo de Descanso' 
+	FROM Musculacao m
+		JOIN Treino t
+			ON t.codigo = m.cod_treino
+		JOIN Aluno a
+			ON a.cod_treino = t.codigo
+		GROUP BY a.cnpj_a;
 
-# Há quantos alunos cadastrados?
-SELECT COUNT(*) AS 'Quantidade de Alunos Cadastrados' FROM Aluno;
+# Liste o cnpj e a qunatidade de alunos cadastrados em cada academia de cnpj = '12345678/9101-11'?
+SELECT ac.cnpj AS 'CNPJ Academia',  COUNT(al.cpf) AS 'Quantidade de Alunos Cadastrados' FROM Aluno al
+	JOIN Academia ac
+		ON ac.cnpj = al.cnpj_a
+	GROUP BY ac.cnpj;
 
 # Qual a maior duracao das aulas de dança?
 SELECT MAX(tempo_aula) FROM Danca;
