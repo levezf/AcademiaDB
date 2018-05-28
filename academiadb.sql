@@ -64,16 +64,13 @@ CREATE TABLE Equipamento(
 		ON DELETE CASCADE
 
 );
-
 CREATE TABLE Sala_Danca(
     
     numero INTEGER,
     cnpj_a VARCHAR(20),
     
-    PRIMARY KEY (numero),
-    FOREIGN KEY (cnpj_a) REFERENCES Academia(cnpj)
-		ON DELETE CASCADE
-
+    FOREIGN KEY (cnpj_a) REFERENCES Academia(cnpj) ON DELETE CASCADE,
+    PRIMARY KEY(numero, cnpj_a)
 );
 
 CREATE TABLE Musculacao(
@@ -195,10 +192,10 @@ CREATE TABLE Aluno_Sala(
     cpf_Aluno VARCHAR(20),
     numero_Sala INTEGER,
     
-    FOREIGN KEY (cpf_Aluno) REFERENCES Aluno(cpf)
+    FOREIGN KEY (numero_sala) REFERENCES Sala_Danca(numero) 
 		ON DELETE CASCADE,
-
-	FOREIGN KEY (numero_Sala) REFERENCES Sala_Danca(numero)
+    
+    FOREIGN KEY (cpf_Aluno) REFERENCES Aluno(cpf)
 		ON DELETE CASCADE
 
 );
@@ -366,7 +363,7 @@ INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, pre
 INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
 	VALUES(015, 'Máquina Scott', '2015-02-13',null, 3154.30, null,'12345678/9101-11');
 
-    
+
 #Inserts Sala_Danca
 INSERT INTO Sala_Danca (numero, cnpj_a)
 	VALUES(1,'12345678/9101-11');
@@ -382,6 +379,21 @@ INSERT INTO Sala_Danca (numero, cnpj_a)
     
 INSERT INTO Sala_Danca (numero, cnpj_a)
 	VALUES(5,'12345678/9101-11');
+    
+INSERT INTO Sala_Danca (numero, cnpj_a)
+	VALUES(1,'12345678/0191-12');
+
+INSERT INTO Sala_Danca (numero, cnpj_a)
+	VALUES(2,'12345678/0191-12');
+    
+INSERT INTO Sala_Danca (numero, cnpj_a)
+	VALUES(3,'12345678/0191-12');
+    
+INSERT INTO Sala_Danca (numero, cnpj_a)
+	VALUES(4,'12345678/0191-12');
+    
+INSERT INTO Sala_Danca (numero, cnpj_a)
+	VALUES(5,'12345678/0191-12');
     
 #Inserts Musculacao    
 INSERT INTO Musculacao (cod_treino, tempo_descanso)
@@ -818,7 +830,7 @@ INSERT INTO Aluno_Sala (cpf_aluno, numero_sala)
 SELECT * FROM Academia;
 SELECT * FROM Funcionario;
 SELECT * FROM Equipamento;
-SELECT * FROM Sala_Danca;
+SELECT DISTINCT * FROM Sala_Danca;
 SELECT * FROM Musculacao;
 SELECT * FROM Danca;
 SELECT * FROM Aluno;
@@ -834,13 +846,13 @@ SELECT * FROM Aluno_Sala;
     
 #UPDATES
 UPDATE Tel_Aluno SET telefone = '1634135997' WHERE cpf_aluno ='196378345/51' AND telefone = '1634116045';
-UPDATE Sala_Danca SET numero = 11 WHERE cnpj_a = '12345678/9101-11' AND numero = 2;
 UPDATE Treino_Exerc SET exercicio = 'Supino Declinado' WHERE cod_treino = 2 AND LOWER(exercicio) = 'leg 45';
 UPDATE Tel_Funcionario SET telefone = '1634165100' WHERE cpf_func = '050622879/03' AND telefone = '1634946734';
 UPDATE Tel_Academia SET telefone = '1933727333' WHERE cnpj_a = '12345678/9101-11' AND telefone='1634201827';
+UPDATE Equipamento SET data_ven = '2018-05-27', preco_ven = 2500.00 WHERE codigo = 003;
 
 #DELETES
-DELETE FROM Tel_Aluno WHERE telefone = '1634135997' AND cpf_aluno = '196378345/51';;
+DELETE FROM Tel_Aluno WHERE telefone = '1634135997' AND cpf_aluno = '196378345/51';
 DELETE FROM Treino WHERE codigo = 1 AND cpf_fun = '108945622/65' AND cpf_aluno = '789102345/35';
 DELETE FROM Aluno WHERE cpf = '789102345/35';
 DELETE FROM Equipamento WHERE codigo = 001;
@@ -850,7 +862,7 @@ DELETE FROM Funcionario WHERE cpf = '108945622/65';
 
 #Consultas
 
-# Qual o tempo médio de descanso para musculacao em cada academia? 
+# Qual o tempo médio de descanso para musculacao em cada academia?(AVG) 
 SELECT a.cnpj_a AS 'CNPJ Academia', SEC_TO_TIME(ROUND(AVG(TIME_TO_SEC(m.tempo_descanso)),2)) AS 'Media: Tempo de Descanso' 
 	FROM Musculacao m
 		JOIN Treino t
@@ -859,22 +871,27 @@ SELECT a.cnpj_a AS 'CNPJ Academia', SEC_TO_TIME(ROUND(AVG(TIME_TO_SEC(m.tempo_de
 			ON a.cod_treino = t.codigo
 		GROUP BY a.cnpj_a;
 
-# Liste o cnpj e a qunatidade de alunos cadastrados em cada academia de cnpj = '12345678/9101-11'?
+# Liste o cnpj e a qunatidade de alunos cadastrados em cada academia de cnpj = '12345678/9101-11'?(COUNT)
 SELECT ac.cnpj AS 'CNPJ Academia',  COUNT(al.cpf) AS 'Quantidade de Alunos Cadastrados' FROM Aluno al
 	JOIN Academia ac
 		ON ac.cnpj = al.cnpj_a
 	GROUP BY ac.cnpj;
 
-# Qual a maior duracao das aulas de dança?
-SELECT MAX(tempo_aula) FROM Danca;
+# Qual a maior duracao das aulas de dança?(MAX)
+SELECT MAX(d.tempo_aula) FROM Danca d
+	JOIN Treino t
+		ON d.cod_treino = t.codigo
+	JOIN Aluno a
+		ON a.cod_treino = t.codigo
+	GROUP BY a.cnpj_a;
 
-# Qual a menor duracao das aulas de dança?
+# Qual a menor duracao das aulas de dança?(MIN)
 SELECT MIN(tempo_aula) FROM Danca;
 
-# Qual o valor total gasto em equipamentos por mes?
+# Qual o valor total gasto em equipamentos por mes?(SUM)
 SELECT ROUND(SUM(preco_comp),2) AS 'Valor total gasto com Equipamentos' FROM Equipamento;
 
-# Liste o nome de todos os alunos de musculação que tenham o exercicio 'Supino reto' em seu treino.
+# Liste o nome de todos os alunos de musculação que tenham o exercicio 'Supino reto' em seu treino.(INNER JOIN)
 SELECT a.nome AS 'Nome do Aluno' FROM Aluno a
 	JOIN Treino t
 		ON a.cod_treino = t.codigo
@@ -882,24 +899,24 @@ SELECT a.nome AS 'Nome do Aluno' FROM Aluno a
 		ON t.codigo = te.cod_treino
 	WHERE LOWER(te.exercicio) LIKE 'supino reto';
 
-#Liste a quantidade de treinos que cada exercicio está presente.
+#Liste a quantidade de treinos que cada exercicio está presente.(GROUP BY)
 SELECT te.exercicio AS 'Nome do Exercicio', COUNT(t.codigo) AS 'Quantidade de treinos'
 	FROM Treino_Exerc te
 		JOIN Treino t
 			ON t.codigo = te.cod_treino
 		GROUP BY te.exercicio;
 
-#Liste o nome de todos os alunos e o codigo de seu treino (caso exista).
+#Liste o nome de todos os alunos e o codigo de seu treino (caso exista). (LEFT JOIN)
 SELECT a.nome AS 'Nome Aluno', IFNULL(t.codigo, '-') AS 'Codigo Treino' FROM Aluno a
 	LEFT JOIN Treino t
 		ON t.codigo = a.cod_treino;
 
-#Liste o nome de todos os funcionarios e os codigos dos treinos que ele orienta (caso exista).
+#Liste o nome de todos os funcionarios e os codigos dos treinos que ele orienta (caso exista).(RIGHT JOIN)
 SELECT f.nome AS 'Nome Funcionario', IFNULL(t.codigo, '-') AS 'Codigo Treino' FROM Treino t
 	RIGHT JOIN Funcionario f
 		ON f.cpf = t.cpf_fun;
         
-# Liste o nome de todos os alunos de musculação que não tenha o exercicio 'Supino reto' nem 'Supino Declinado' em seu treino.
+# Liste o nome de todos os alunos de musculação que não tenha o exercicio 'Supino reto' nem 'Supino Declinado' em seu treino.(IN)
 SELECT DISTINCT a.nome AS 'Nome do Aluno' FROM Aluno a
 	JOIN Treino t
 		ON a.cod_treino = t.codigo
@@ -907,7 +924,7 @@ SELECT DISTINCT a.nome AS 'Nome do Aluno' FROM Aluno a
 		ON t.codigo = te.cod_treino
 	WHERE LOWER(te.exercicio) NOT IN ('supino reto', 'supino declinado');
     
-#Mostre o(s) nome(s) do(s) funcionario(s) que orienta(m) mais treinos. Utilize a expressão ALL
+#Mostre o(s) nome(s) do(s) funcionario(s) que orienta(m) mais treinos. Utilize a expressão ALL(HAVING)
 SELECT f.nome AS 'Nome Funcionario' FROM Treino t
 	JOIN Funcionario f
 		ON f.cpf = t.cpf_fun
@@ -917,7 +934,7 @@ SELECT f.nome AS 'Nome Funcionario' FROM Treino t
 											ON f.cpf = t.cpf_fun
 										GROUP BY f.nome);
                                         
-#Mostre o nome de todos os alunos matriculados na musculacao(Use a expresão ANY ou SOME).
+#Mostre o nome de todos os alunos matriculados na musculacao(Use a expresão ANY/SOME).
 SELECT nome FROM Aluno 
 	WHERE cpf = ANY(SELECT t.cpf_aluno FROM Treino t JOIN Musculacao m ON m.cod_treino = t.codigo);
     
