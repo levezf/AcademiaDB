@@ -243,6 +243,37 @@ INSERT INTO Funcionario (cpf, nome, cargo, email, carga_ho, cep, logradouro, bai
 	VALUES('899854226/24', 'Larissa', 'Gerente','la.marins@live.com', 8, '12350-100', 'Av. das Nações Unidas', 'Jardim Pinheiros', '12345678/9101-11');
 
 
+INSERT INTO Funcionario (cpf, nome, cargo, email, carga_ho, cep, logradouro, bairro, cnpj_a)
+	VALUES('836914226/34', 'Felipe', 'Dono','fe.fefe@gmail.com', 8, '12350-100', 'Av. das Nações Separadas', 'Jardim Coqueiros', '12345678/0191-12');
+INSERT INTO Funcionario (cpf, nome, cargo, email, carga_ho, cep, logradouro, bairro, cnpj_a)
+	VALUES('746854226/44', 'Cledson', 'Gerente','terceira.perna@hotmail.com', 8, '12350-100', 'Rua Avolta dos Quenaoforam', 'Jardim Gaspar', '12345678/0191-12');
+INSERT INTO Funcionario (cpf, nome, cargo, email, carga_ho, cep, logradouro, bairro, cnpj_a)
+	VALUES('899853214/54', 'Creison', 'Instrutor','cc.suor@outlook.com', 8, '12350-100', 'Av. Liberdade', 'Jardim Eusebio', '12345678/0191-12');
+    
+    
+INSERT INTO Funcionario (cpf, nome, cargo, email, carga_ho, cep, logradouro, bairro, cnpj_a)
+	VALUES('899834698/64', 'Florisberto', 'Gerente','ticao@gmail.com', 8, '14796-130', 'Av. das Flores', 'Jardim Birigui', '12765678/1256-98');
+INSERT INTO Funcionario (cpf, nome, cargo, email, carga_ho, cep, logradouro, bairro, cnpj_a)
+	VALUES('899852226/74', 'Zubumafu', 'Instrutor','zuzu.animal@live.com', 8, '13010-198', 'Av. Broa', 'Jardim Lagoa Dourada', '12765678/1256-98');
+    
+    
+INSERT INTO Funcionario (cpf, nome, cargo, email, carga_ho, cep, logradouro, bairro, cnpj_a)
+	VALUES('329854266/84', 'Bernardo', 'Gerente','nardao@yahoo.com.br', 8, '12320-100', 'Av. das Povos Unidos', 'Jardim Invenciveis', '17845678/1235-36');
+INSERT INTO Funcionario (cpf, nome, cargo, email, carga_ho, cep, logradouro, bairro, cnpj_a)
+	VALUES('899987520/94', 'Bernadete', 'Instrutor','detnet@ahoo.com.br', 8, '18950-100', 'Av. Chaves', 'Jardim Barril', '17845678/1235-36');
+INSERT INTO Funcionario (cpf, nome, cargo, email, carga_ho, cep, logradouro, bairro, cnpj_a)
+	VALUES('800854226/14', 'Carmen', 'Atendente','carmem.lucia@gmail.com', 8, '12258-100', 'Av. Monte Verde', 'Jardim dos Sorrisos', '17845678/1235-36');
+    
+INSERT INTO Funcionario (cpf, nome, cargo, email, carga_ho, cep, logradouro, bairro, cnpj_a)
+	VALUES('879654226/22', 'Josilene', 'Faxineira','jojo@live.com', 8, '12348-100', 'Av. São Carlos', 'Jardim dos Buracos', '14745678/3278-02');
+INSERT INTO Funcionario (cpf, nome, cargo, email, carga_ho, cep, logradouro, bairro, cnpj_a)
+	VALUES('899854036/23', 'Ciro', 'Gerente','cirao@gmail.com', 8, '13698-120', 'Av. São Paulo', 'Jardim das Balas Perdidas', '14745678/3278-02');
+INSERT INTO Funcionario (cpf, nome, cargo, email, carga_ho, cep, logradouro, bairro, cnpj_a)
+	VALUES('899854220/20', 'Leticia', 'Atendente','lets@yahoo.com.br', 8, '13260-190', 'Av. Pelotas', 'Jardim Colorido', '14745678/3278-02');
+INSERT INTO Funcionario (cpf, nome, cargo, email, carga_ho, cep, logradouro, bairro, cnpj_a)
+	VALUES('802024226/78', 'Gabriel', 'Instrutor','bi.bibi@outlook.com', 8, '13456-150', 'Av. La Massa', 'Jardim Italia', '14745678/3278-02');
+
+
 #Inserts Treino
 INSERT INTO Treino(codigo, cpf_aluno, cpf_fun)
 	VALUES(001, '789102345/35','108945622/65');
