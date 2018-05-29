@@ -45,7 +45,7 @@ CREATE TABLE Funcionario(
     bairro VARCHAR(64),
     cnpj_a VARCHAR(20),
     
-    PRIMARY KEY(cpf),
+    PRIMARY KEY(cpf, cnpj_a),
     FOREIGN KEY (cnpj_a) REFERENCES Academia(cnpj)
 );
 
@@ -59,7 +59,7 @@ CREATE TABLE Equipamento(
     preco_ven FLOAT,
     cnpj_a VARCHAR(20),
     
-    PRIMARY KEY (codigo),
+    PRIMARY KEY (codigo, cnpj_a),
     FOREIGN KEY (cnpj_a) REFERENCES Academia(cnpj)
 		ON DELETE CASCADE
 
@@ -102,7 +102,7 @@ CREATE TABLE Aluno(
     cnpj_a VARCHAR(20),
     cod_treino INTEGER,
     
-    PRIMARY KEY(cpf),
+    PRIMARY KEY(cpf, cnpj_a),
     FOREIGN KEY (cnpj_a) REFERENCES Academia(cnpj)
 		ON DELETE CASCADE
 
@@ -114,9 +114,7 @@ CREATE TABLE Treino(
     cpf_fun VARCHAR(20),
     codigo INTEGER,
     
-    PRIMARY KEY(codigo),
-    FOREIGN KEY (cpf_fun) REFERENCES Funcionario(cpf)
-		ON DELETE CASCADE
+    PRIMARY KEY(codigo, cpf_aluno, cpf_fun)
 );
 
 CREATE TABLE Treino_Exerc(
@@ -155,11 +153,10 @@ CREATE TABLE Tel_Academia(
     cnpj_a VARCHAR(20),
     telefone VARCHAR(20),
     
-    PRIMARY KEY (telefone),
-    FOREIGN KEY (cnpj_a) REFERENCES Academia(cnpj)
-		ON DELETE CASCADE
+    PRIMARY KEY (telefone)
 
 );
+ALTER TABLE Tel_Academia ADD FOREIGN KEY(cnpj_a) REFERENCES Academia(cnpj) ON DELETE CASCADE;
 
 CREATE TABLE Aluno_Func(
     
@@ -167,12 +164,10 @@ CREATE TABLE Aluno_Func(
     cpf_Aluno VARCHAR(20),
     
     FOREIGN KEY (cpf_Aluno) REFERENCES Aluno(cpf)
-		ON DELETE CASCADE,
-
-    FOREIGN KEY (cpf_Func) REFERENCES Funcionario(cpf)
 		ON DELETE CASCADE
-
 );
+ALTER TABLE Aluno_Func ADD FOREIGN KEY(cpf_Func) REFERENCES Funcionario(cpf) ON DELETE CASCADE;
+
 
 CREATE TABLE Aluno_Equipa(
     
@@ -180,12 +175,10 @@ CREATE TABLE Aluno_Equipa(
     cod_equipa INTEGER,
     
     FOREIGN KEY (cpf_Aluno) REFERENCES Aluno(cpf)
- 		ON DELETE CASCADE,
- 
-	FOREIGN KEY (cod_equipa) REFERENCES Equipamento(codigo)
-		ON DELETE CASCADE
-
+ 		ON DELETE CASCADE
 );
+ALTER TABLE Aluno_Equipa ADD FOREIGN KEY(cod_equipa) REFERENCES Equipamento(codigo) ON DELETE CASCADE;
+
 
 CREATE TABLE Aluno_Sala(
     
@@ -211,6 +204,18 @@ INSERT INTO Academia (cnpj, nome, cep, logradouro, bairro, num)
     
 INSERT INTO Academia (cnpj, nome, cep, logradouro, bairro, num)
 	VALUES('12345678/0191-12', 'FullMaster', '12311-100', 'Piccola Italia', 'Jardim Italia', 350);
+
+    
+INSERT INTO Academia (cnpj, nome, cep, logradouro, bairro, num)
+	VALUES('12765678/1256-98', 'FullMaster', '15494-120', 'Miguel Petroni', 'Santa Paula', 78);
+
+    
+INSERT INTO Academia (cnpj, nome, cep, logradouro, bairro, num)
+	VALUES('17845678/1235-36', 'FullMaster', '12450-180', 'Abraão João', 'Jardim Bandeirantes', 275);
+
+    
+INSERT INTO Academia (cnpj, nome, cep, logradouro, bairro, num)
+	VALUES('14745678/3278-02', 'FullMaster', '16358-190', 'Miguel João','Jardim Bandeirantes', 272);
 
 #Inserts Funcionario
 INSERT INTO Funcionario (cpf, nome, cargo, email, carga_ho, cep, logradouro, bairro, cnpj_a)
@@ -313,10 +318,6 @@ INSERT INTO Aluno (cpf, nome, plano, email, data_nasc, cep, logradouro, bairro, 
 	VALUES('806097197/10', 'Giovana Solo', 'VIP', 'gi.solo@yahoo.com.br','1994-09-02', '12311-100', 'Liberdade', 'Rua Ana Berck','12345678/0191-12', 002);  
 
 
-ALTER TABLE Treino ADD FOREIGN KEY (cpf_aluno) REFERENCES Aluno(cpf) ON DELETE CASCADE;
-
-ALTER TABLE Aluno ADD FOREIGN KEY (cod_treino) REFERENCES Treino(codigo) ON DELETE CASCADE;
-
 #Inserts Equipamento
 INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
 	VALUES(001, 'Pulley', '2015-05-29', null, 4500.50, null, '12345678/9101-11');
@@ -363,6 +364,33 @@ INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, pre
 INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
 	VALUES(015, 'Máquina Scott', '2015-02-13',null, 3154.30, null,'12345678/9101-11');
 
+
+
+INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
+	VALUES(001, 'Alteres', '2014-07-21',null, 3845.50, null,'12345678/0191-12');
+
+INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
+	VALUES(002, 'Bancos multiposicões', '2014-07-21',null, 5000.50, null,'12345678/0191-12');
+
+INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
+	VALUES(003, 'Máquina Scott', '2015-02-13',null, 3154.30, null,'12345678/0191-12');
+    
+INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
+	VALUES(004, 'Máquina Scott', '2015-02-13',null, 3154.30, null,'12345678/0191-12');
+    
+
+INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
+	VALUES(001, 'Alteres', '2014-07-21',null, 3845.50, null,'12765678/1256-98');
+
+INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
+	VALUES(002, 'Bancos multiposicões', '2014-07-21',null, 5000.50, null,'12765678/1256-98');
+
+INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
+	VALUES(003, 'Máquina Scott', '2015-02-13',null, 3154.30, null,'12765678/1256-98');
+    
+INSERT INTO Equipamento (codigo, descricao, data_comp, data_ven, preco_comp, preco_ven, cnpj_a)
+	VALUES(004, 'Máquina Scott', '2015-02-13',null, 3154.30, null,'12765678/1256-98');
+    
 
 #Inserts Sala_Danca
 INSERT INTO Sala_Danca (numero, cnpj_a)
@@ -704,6 +732,15 @@ INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
     
 INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
 	VALUES('456997420/55',001);
+
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('456997420/55',006);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('456997420/55',008);
+    
+INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
+	VALUES('456997420/55',011);
     
 INSERT INTO Aluno_Equipa (cpf_aluno, cod_equipa)
 	VALUES('456997420/55',002);
@@ -877,8 +914,8 @@ SELECT ac.cnpj AS 'CNPJ Academia',  COUNT(al.cpf) AS 'Quantidade de Alunos Cadas
 		ON ac.cnpj = al.cnpj_a
 	GROUP BY ac.cnpj;
 
-# Qual a maior duracao das aulas de dança?(MAX)
-SELECT MAX(d.tempo_aula) FROM Danca d
+# Qual a maior duracao das aulas de dança de cada academia?(MAX)
+SELECT a.cnpj_a, MAX(d.tempo_aula) FROM Danca d
 	JOIN Treino t
 		ON d.cod_treino = t.codigo
 	JOIN Aluno a
@@ -886,46 +923,61 @@ SELECT MAX(d.tempo_aula) FROM Danca d
 	GROUP BY a.cnpj_a;
 
 # Qual a menor duracao das aulas de dança?(MIN)
-SELECT MIN(tempo_aula) FROM Danca;
+SELECT a.cnpj_a, MIN(d.tempo_aula) FROM Danca d
+	JOIN Treino t
+		ON d.cod_treino = t.codigo
+	JOIN Aluno a
+		ON a.cod_treino = t.codigo
+	GROUP BY a.cnpj_a;
 
 # Qual o valor total gasto em equipamentos por mes?(SUM)
-SELECT ROUND(SUM(preco_comp),2) AS 'Valor total gasto com Equipamentos' FROM Equipamento;
+SELECT e.cnpj_a, ROUND(SUM(e.preco_comp),2) AS 'Valor total gasto com Equipamentos' FROM Equipamento e
+	JOIN Academia a
+		ON a.cnpj = e.cnpj_a
+	GROUP BY e.cnpj_a;
+        
 
-# Liste o nome de todos os alunos de musculação que tenham o exercicio 'Supino reto' em seu treino.(INNER JOIN)
-SELECT a.nome AS 'Nome do Aluno' FROM Aluno a
+# Liste o nome de todos os alunos de musculação de cada academia que tenham o exercicio 'Supino reto' em seu treino.(INNER JOIN)
+SELECT a.cnpj_a, a.nome AS 'Nome do Aluno' FROM Aluno a
 	JOIN Treino t
 		ON a.cod_treino = t.codigo
 	JOIN Treino_Exerc te
 		ON t.codigo = te.cod_treino
 	WHERE LOWER(te.exercicio) LIKE 'supino reto';
 
-#Liste a quantidade de treinos que cada exercicio está presente.(GROUP BY)
+#Liste a quantidade de treinos que cada exercicio está presente na academia de CNPJ = '12345678/9101-11'.(GROUP BY)
 SELECT te.exercicio AS 'Nome do Exercicio', COUNT(t.codigo) AS 'Quantidade de treinos'
 	FROM Treino_Exerc te
 		JOIN Treino t
 			ON t.codigo = te.cod_treino
+		JOIN Aluno a
+			ON a.cpf = t.cpf_aluno
+		WHERE a.cnpj_a LIKE '12345678/9101-11' 
 		GROUP BY te.exercicio;
+       
 
-#Liste o nome de todos os alunos e o codigo de seu treino (caso exista). (LEFT JOIN)
+#Liste o nome de todos os alunos e o codigo de seu treino na academia de CNPJ = '12345678/9101-11' (caso exista). (LEFT JOIN)
 SELECT a.nome AS 'Nome Aluno', IFNULL(t.codigo, '-') AS 'Codigo Treino' FROM Aluno a
 	LEFT JOIN Treino t
-		ON t.codigo = a.cod_treino;
+		ON t.codigo = a.cod_treino
+	WHERE a.cnpj_a LIKE '12345678/9101-11';
 
-#Liste o nome de todos os funcionarios e os codigos dos treinos que ele orienta (caso exista).(RIGHT JOIN)
-SELECT f.nome AS 'Nome Funcionario', IFNULL(t.codigo, '-') AS 'Codigo Treino' FROM Treino t
+#Liste o nome de todos os funcionarios, os codigos dos treinos que ele orienta (caso exista) e o cnpj da academia que trabalha.(RIGHT JOIN)
+SELECT f.cnpj_a AS 'CNPJ Academia', f.nome AS 'Nome Funcionario', IFNULL(t.codigo, '-') AS 'Codigo Treino' FROM Treino t
 	RIGHT JOIN Funcionario f
 		ON f.cpf = t.cpf_fun;
         
-# Liste o nome de todos os alunos de musculação que não tenha o exercicio 'Supino reto' nem 'Supino Declinado' em seu treino.(IN)
-SELECT DISTINCT a.nome AS 'Nome do Aluno' FROM Aluno a
+# Liste o nome de todos os alunos de musculação e o cnpj da academia que não tenha o exercicio 'Supino reto' nem 'Supino Declinado' em seu treino.(IN)
+SELECT DISTINCT a.cnpj_a AS 'CNPJ Academia', a.nome AS 'Nome do Aluno' FROM Aluno a
 	JOIN Treino t
 		ON a.cod_treino = t.codigo
 	JOIN Treino_Exerc te
 		ON t.codigo = te.cod_treino
 	WHERE LOWER(te.exercicio) NOT IN ('supino reto', 'supino declinado');
     
-#Mostre o(s) nome(s) do(s) funcionario(s) que orienta(m) mais treinos. Utilize a expressão ALL(HAVING)
-SELECT f.nome AS 'Nome Funcionario' FROM Treino t
+#Mostre o(s) nome(s) do(s) funcionario(s) que orienta(m) mais treinos que os demais por academia. Utilize a expressão ALL(HAVING)
+
+SELECT f.cnpj_a AS 'CNPJ Academia', f.nome AS 'Nome Funcionario' FROM Treino t
 	JOIN Funcionario f
 		ON f.cpf = t.cpf_fun
 	GROUP BY f.nome
@@ -934,12 +986,18 @@ SELECT f.nome AS 'Nome Funcionario' FROM Treino t
 											ON f.cpf = t.cpf_fun
 										GROUP BY f.nome);
                                         
-#Mostre o nome de todos os alunos matriculados na musculacao(Use a expresão ANY/SOME).
+#Mostre o nome de todos os alunos matriculados na musculacao na academia de cnpj = '12345678/9101-11'(Use a expresão ANY/SOME).
 SELECT nome FROM Aluno 
-	WHERE cpf = ANY(SELECT t.cpf_aluno FROM Treino t JOIN Musculacao m ON m.cod_treino = t.codigo);
+	WHERE cpf = ANY(SELECT t.cpf_aluno FROM Treino t JOIN Musculacao m ON m.cod_treino = t.codigo)
+		AND cnpj_a LIKE '12345678/9101-11';
+        
+#Liste o cnpj da academia e o nome, data de venda, preço de venda e a quantidade de alunos que o usavam, de cada Equipamento vendido
+SELECT DISTINCT e.cnpj_a AS 'CNPJ Academia', e.descricao AS 'Descrição', e.data_ven AS 'Data Venda', e.preco_ven AS 'Preço Venda', COUNT(ae.cod_equipa) AS 'Quantidade de alunos que utilizavam' FROM Equipamento e
+	LEFT JOIN Aluno_Equipa ae
+		ON ae.cod_equipa = e.codigo
+	LEFT JOIN ALuno a
+		ON a.cpf = ae.cpf_aluno
+	WHERE e.data_ven IS NOT NULL
+    GROUP BY e.descricao;
     
-#
 
-#
-
-#
