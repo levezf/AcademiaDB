@@ -991,7 +991,7 @@ SELECT nome FROM Aluno
 	WHERE cpf = ANY(SELECT t.cpf_aluno FROM Treino t JOIN Musculacao m ON m.cod_treino = t.codigo)
 		AND cnpj_a LIKE '12345678/9101-11';
         
-#Liste o cnpj da academia e o nome, data de venda, preço de venda e a quantidade de alunos que o usavam, de cada Equipamento vendido
+#Liste o cnpj da academia e a descrição, data de venda, preço de venda e a quantidade de alunos que o usavam, de cada Equipamento vendido
 SELECT DISTINCT e.cnpj_a AS 'CNPJ Academia', e.descricao AS 'Descrição', e.data_ven AS 'Data Venda', e.preco_ven AS 'Preço Venda', COUNT(ae.cod_equipa) AS 'Quantidade de alunos que utilizavam' FROM Equipamento e
 	LEFT JOIN Aluno_Equipa ae
 		ON ae.cod_equipa = e.codigo
@@ -1000,4 +1000,21 @@ SELECT DISTINCT e.cnpj_a AS 'CNPJ Academia', e.descricao AS 'Descrição', e.dat
 	WHERE e.data_ven IS NOT NULL
     GROUP BY e.descricao;
     
-
+#Liste o cnpj da academia, a descrição do equipamento e a quantidade de alunos que usavam cada equipamento (Não vendido)(Utilize ORDER BY)
+SELECT DISTINCT e.cnpj_a AS 'CNPJ Academia', e.descricao AS 'Descrição', COUNT(ae.cod_equipa) AS 'Quantidade de alunos que utilizam' FROM Equipamento e
+	LEFT JOIN Aluno_Equipa ae
+		ON ae.cod_equipa = e.codigo
+	LEFT JOIN ALuno a
+		ON a.cpf = ae.cpf_aluno
+	WHERE e.data_ven IS NULL
+    GROUP BY e.descricao
+    ORDER BY e.cnpj_a;
+    
+#Liste todos os exercicios de musculação que tenha a letra "s" no nome e mostre o cnpj da academia
+SELECT a.cnpj_a AS 'CNPJ Academia', te.exercicio AS 'Nome do Exercicio'
+	FROM Treino_Exerc te
+		JOIN Treino t
+			ON t.codigo = te.cod_treino
+		JOIN Aluno a
+			ON a.cpf = t.cpf_aluno
+		WHERE te.exercicio LIKE '%s%';
