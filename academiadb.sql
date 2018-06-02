@@ -22,22 +22,21 @@ USE bd1_academia;
 
 #CRIAÇÂO DE TABELAS 
 CREATE TABLE Academia(
-    
+
     cnpj VARCHAR(20),
     nome VARCHAR(64),
-    cep VARCHAR(20),
     logradouro VARCHAR(64),
     bairro VARCHAR(64),
     num INTEGER,
-    
     PRIMARY KEY (cnpj)
 );
 
+ALTER TABLE Academia ADD cep VARCHAR(20);
+
 CREATE TABLE Funcionario(
-    
+
     cpf VARCHAR(20),
     nome VARCHAR(64),
-    cargo VARCHAR(64),
     email VARCHAR(64),
     carga_ho VARCHAR(64),
     cep VARCHAR(64),
@@ -48,13 +47,13 @@ CREATE TABLE Funcionario(
     PRIMARY KEY(cpf, cnpj_a),
     FOREIGN KEY (cnpj_a) REFERENCES Academia(cnpj)
 );
+ALTER TABLE Funcionario ADD cargo VARCHAR(64);
+ALTER TABLE Funcionario MODIFY nome VARCHAR(128);
 
 CREATE TABLE Equipamento(
     
     codigo INTEGER,
-    descricao VARCHAR(256),
-    data_comp DATE,
-    data_ven DATE,
+    descricao VARCHAR(128),
     preco_comp FLOAT,
     preco_ven FLOAT,
     cnpj_a VARCHAR(20),
@@ -62,14 +61,19 @@ CREATE TABLE Equipamento(
     PRIMARY KEY (codigo, cnpj_a),
     FOREIGN KEY (cnpj_a) REFERENCES Academia(cnpj)
 		ON DELETE CASCADE
-
+		ON UPDATE CASCADE
 );
+ALTER TABLE Equipamento ADD data_comp DATE;
+ALTER TABLE Equipamento ADD data_ven DATE;
+ALTER TABLE Equipamento MODIFY descricao VARCHAR(256);
+
+
 CREATE TABLE Sala_Danca(
     
     numero INTEGER,
     cnpj_a VARCHAR(20),
     
-    FOREIGN KEY (cnpj_a) REFERENCES Academia(cnpj) ON DELETE CASCADE,
+    FOREIGN KEY (cnpj_a) REFERENCES Academia(cnpj) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY(numero, cnpj_a)
 );
 
@@ -93,8 +97,7 @@ CREATE TABLE Aluno(
 
     cpf VARCHAR(20),
     nome VARCHAR(64),
-    plano VARCHAR(64),
-    email VARCHAR(64),
+    plano VARCHAR(32),
     data_nasc DATE,
     cep VARCHAR(64),
     logradouro VARCHAR(64),
@@ -105,8 +108,12 @@ CREATE TABLE Aluno(
     PRIMARY KEY(cpf, cnpj_a),
     FOREIGN KEY (cnpj_a) REFERENCES Academia(cnpj)
 		ON DELETE CASCADE
+        ON UPDATE CASCADE
 
 );
+ALTER TABLE Aluno ADD email VARCHAR(64);
+ALTER TABLE Aluno MODIFY plano VARCHAR(64);
+
 
 CREATE TABLE Treino(
     
@@ -124,7 +131,9 @@ CREATE TABLE Treino_Exerc(
     
     FOREIGN KEY (cod_treino) REFERENCES Treino(codigo)
 		ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
+ALTER TABLE Treino_Exerc MODIFY exercicio VARCHAR(128);
 
 CREATE TABLE Tel_Aluno(
 
@@ -134,6 +143,7 @@ CREATE TABLE Tel_Aluno(
     PRIMARY KEY (telefone),
     FOREIGN KEY (cpf_Aluno) REFERENCES Aluno(cpf) 
 		ON DELETE CASCADE
+        ON UPDATE CASCADE
 
 );
 
@@ -145,7 +155,7 @@ CREATE TABLE Tel_Funcionario(
     PRIMARY KEY (telefone),
     FOREIGN KEY (cpf_Func) REFERENCES Funcionario(cpf)
 		ON DELETE CASCADE
-
+		ON UPDATE CASCADE
 );
 
 CREATE TABLE Tel_Academia(
@@ -165,6 +175,7 @@ CREATE TABLE Aluno_Func(
     
     FOREIGN KEY (cpf_Aluno) REFERENCES Aluno(cpf)
 		ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 ALTER TABLE Aluno_Func ADD FOREIGN KEY(cpf_Func) REFERENCES Funcionario(cpf) ON DELETE CASCADE;
 
@@ -172,12 +183,14 @@ ALTER TABLE Aluno_Func ADD FOREIGN KEY(cpf_Func) REFERENCES Funcionario(cpf) ON 
 CREATE TABLE Aluno_Equipa(
     
     cpf_Aluno VARCHAR(20),
-    cod_equipa INTEGER,
+    cod_equipa VARCHAR(5),
     
     FOREIGN KEY (cpf_Aluno) REFERENCES Aluno(cpf)
  		ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
-ALTER TABLE Aluno_Equipa ADD FOREIGN KEY(cod_equipa) REFERENCES Equipamento(codigo) ON DELETE CASCADE;
+ALTER TABLE Aluno_Equipa MODIFY cod_equipa INTEGER;
+ALTER TABLE Aluno_Equipa ADD FOREIGN KEY(cod_equipa) REFERENCES Equipamento(codigo) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
 CREATE TABLE Aluno_Sala(
@@ -190,6 +203,7 @@ CREATE TABLE Aluno_Sala(
     
     FOREIGN KEY (cpf_Aluno) REFERENCES Aluno(cpf)
 		ON DELETE CASCADE
+        ON UPDATE CASCADE
 
 );
 
@@ -898,7 +912,7 @@ INSERT INTO Aluno_Sala (cpf_aluno, numero_sala)
 SELECT * FROM Academia;
 SELECT * FROM Funcionario;
 SELECT * FROM Equipamento;
-SELECT DISTINCT * FROM Sala_Danca;
+SELECT * FROM Sala_Danca;
 SELECT * FROM Musculacao;
 SELECT * FROM Danca;
 SELECT * FROM Aluno;
@@ -1006,7 +1020,7 @@ SELECT DISTINCT a.cnpj_a AS 'CNPJ Academia', a.nome AS 'Nome do Aluno' FROM Alun
 		ON t.codigo = te.cod_treino
 	WHERE LOWER(te.exercicio) NOT IN ('supino reto', 'supino declinado');
     
-#Mostre o(s) nome(s) do(s) funcionario(s) que orienta(m) mais treinos que os demais por academia. Utilize a expressão ALL(HAVING)
+#Mostre o(s) nome(s) do(s) funcionario(s) que orienta(m) mais treinos que os demais por academia. Utilize a expressão ALL
 
 SELECT f.cnpj_a AS 'CNPJ Academia', f.nome AS 'Nome Funcionario' FROM Treino t
 	JOIN Funcionario f
@@ -1048,4 +1062,12 @@ SELECT a.cnpj_a AS 'CNPJ Academia', te.exercicio AS 'Nome do Exercicio'
 			ON t.codigo = te.cod_treino
 		JOIN Aluno a
 			ON a.cpf = t.cpf_aluno
-		WHERE te.exercicio LIKE '%s%';
+		WHERE LOWER(te.exercicio) LIKE '%s%';
+        
+#Mostre o(s) nome(s) do(s) funcionario(s) e a quantidade de treinos que ele(s) orienta(m), quando orientar mais de 2 treinos. Utilize a expressão HAVING
+SELECT f.cnpj_a AS 'CNPJ Academia', f.nome AS 'Nome Funcionario', COUNT(t.codigo) AS 'Quantidade de treinos' 
+	FROM Treino t
+	JOIN Funcionario f
+		ON f.cpf = t.cpf_fun
+	GROUP BY f.nome
+    HAVING COUNT(t.codigo) >= 2;
